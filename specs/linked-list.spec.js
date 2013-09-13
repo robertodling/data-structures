@@ -189,6 +189,24 @@ describe('Linked list', function () {
 		});
 	});
 
+	describe('Empty', function () {
+		it('should return true on newly created list', function () {
+			var list = new LinkedList();
+			expect(list.isEmpty()).to.be.true;
+		});
+		it('should return false on list with items', function () {
+			var list = new LinkedList();
+			list.insertFirst('value');
+			expect(list.isEmpty()).to.be.false;
+		});
+		it('should return true on list that has been cleared', function () {
+			var list = new LinkedList();
+			list.insertFirst('value');
+			list.clear();
+			expect(list.isEmpty()).to.be.true;
+		});
+	});
+
 	describe('Error handling', function () {
 
 		it('should throw NoSuchElementException when retrieving element on empty list', function () {

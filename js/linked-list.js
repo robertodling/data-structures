@@ -139,7 +139,7 @@ var LinkedList = (function () {
 	 */
 	proto.size = function () {
 
-		if (!this.head) {
+		if (this.isEmpty()) {
 			return 0;
 		}
 
@@ -161,7 +161,7 @@ var LinkedList = (function () {
 
 		var newNode = new Node(element);
 
-		if (!this.head) {
+		if (this.isEmpty()) {
 			this.head = newNode;
 			this.tail = newNode;
 		} else {
@@ -177,7 +177,7 @@ var LinkedList = (function () {
 
 		var node = new Node(element);
 
-		if (!this.tail) {
+		if (this.isEmpty()) {
 			this.insertFirst(element)
 		} else {
 			this.tail.insertAfter(this, node);
@@ -192,12 +192,14 @@ var LinkedList = (function () {
 	 */
 	proto.insertAt = function (index, element) {
 
-		if (index < 0 || !this.head && index!==0) {
+		// negative index always out bound
+		// if empty only allow adding at index 0
+		if (index < 0 || this.isEmpty() && index!==0) {
 			throw new Error("OutOfBoundException");
 		}
 
-		if (!this.head && index === 0) {
-			this.insertLast(element);
+		if (this.isEmpty()) {
+			this.insertFirst(element);
 		} else {
 			var node = this.head.nodeAfter(index);
 			if (!node) {
@@ -252,6 +254,14 @@ var LinkedList = (function () {
 	proto.removeAt = function (index) {
 		var node = this.head.nodeAfter(index);
 		node.remove(this);
+	};
+
+	/**
+	 * Check if list is empty
+	 * @return {boolean}
+	 */
+	proto.isEmpty = function () {
+		return !this.tail;
 	};
 
 	// export LinkedList constructor
