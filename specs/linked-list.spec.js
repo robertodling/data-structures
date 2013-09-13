@@ -241,5 +241,34 @@ describe('Linked list', function () {
 		});
 	});
 
+	describe('To array', function () {
+
+		it('should return empty array on empty list', function () {
+			var list = new LinkedList();
+			var arr = list.toArray();
+			expect(arr).to.be.an('array');
+			expect(arr.length).to.equal(0);
+		});
+
+		it('should return array with correct element', function () {
+			var list = new LinkedList();
+			helper(insertLast, list, '1', '2', '3', '4', '5');
+			var arr = list.toArray();
+			console.log(arr);
+			expect(arr[0]).to.equal('1');
+			expect(arr[1]).to.equal('2');
+			expect(arr[2]).to.equal('3');
+			expect(arr[3]).to.equal('4');
+			expect(arr[4]).to.equal('5');
+		});
+/*
+		helper(insertLast, list, '1', '2', '3', '4', '5');
+
+		var arr*/
+	});
+
+
+
+
 
 });

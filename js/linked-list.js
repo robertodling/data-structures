@@ -194,7 +194,7 @@ var LinkedList = (function () {
 
 		// negative index always out bound
 		// if empty only allow adding at index 0
-		if (index < 0 || this.isEmpty() && index!==0) {
+		if (index < 0 || this.isEmpty() && index !== 0) {
 			throw new Error("OutOfBoundException");
 		}
 
@@ -262,6 +262,28 @@ var LinkedList = (function () {
 	 */
 	proto.isEmpty = function () {
 		return !this.tail;
+	};
+
+	/**
+	 * Returns list as array
+	 * @return {array}
+	 */
+	proto.toArray = function () {
+		if (this.isEmpty()) {
+			return [];
+		}
+
+		var arr = [];
+		var node = this.head;
+
+		arr.push(node.element);
+
+		while (node.next){
+			node = node.next;
+			arr.push(node.element);
+		}
+
+		return arr;
 	};
 
 	// export LinkedList constructor
