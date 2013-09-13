@@ -137,20 +137,20 @@ var LinkedList = (function () {
 	 * Returns number of elements in list.
 	 * @param {number}
 	 */
-	proto.length = function () {
+	proto.size = function () {
 
 		if (!this.head) {
 			return 0;
 		}
 
-		var length = 1;
+		var size = 1;
 		var node = this.head;
 		while (node.next) {
 			node = node.next;
-			length++;
+			size++;
 		}
 
-		return length;
+		return size;
 	};
 
 	/**

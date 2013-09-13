@@ -37,49 +37,49 @@ describe('Linked list', function () {
 
 	describe('Length method', function () {
 
-		it('should have zero length if empty', function () {
+		it('should have zero size if empty', function () {
 			var list = new LinkedList();
-			expect(list.length()).to.equal(0);
+			expect(list.size()).to.equal(0);
 		});
 
-		it('should have length one if one item added', function () {
+		it('should have size one if one item added', function () {
 			var list = new LinkedList();
 			list.insertFirst(1);
-			expect(list.length()).to.equal(1);
+			expect(list.size()).to.equal(1);
 		});
 
-		it('should have length 10 if 10 items added', function () {
+		it('should have size 10 if 10 items added', function () {
 			var list = new LinkedList();
 
 			helper(insertFirst, list, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-			expect(list.length()).to.equal(10);
+			expect(list.size()).to.equal(10);
 		});
 
-		it('should have length 2048 if 2048 items inserted first', function () {
+		it('should have size 2048 if 2048 items inserted first', function () {
 			var list = new LinkedList();
 
 			batcher(insertFirst, list, 'foo', 2048);
 
-			expect(list.length()).to.equal(2048);
+			expect(list.size()).to.equal(2048);
 		});
 
-		it('should have length 2048 if 2048 items inserted last', function () {
+		it('should have size 2048 if 2048 items inserted last', function () {
 			var list = new LinkedList();
 
 			batcher(insertLast, list, 'foo', 2048);
 
-			expect(list.length()).to.equal(2048);
+			expect(list.size()).to.equal(2048);
 		});
 
-		it.skip('should have length 0 if 0 items inserted at index zero', function () {
+		it.skip('should have size 112 if 122 items inserted at index zero', function () {
 			var list = new LinkedList();
 
 			batcher(function (list, value) {
 				list.insertAt(1, value);
 			}, list, 'foo', 2048);
 
-			expect(list.length()).to.equal(2048);
+			expect(list.size()).to.equal(2048);
 		});
 	});
 
@@ -147,7 +147,7 @@ describe('Linked list', function () {
 
 			list.insertAt(5, 'five');
 
-			expect(list.length()).to.equal(13);
+			expect(list.size()).to.equal(13);
 			expect(list.elementAt(5)).to.equal('five');
 		});
 	});
@@ -173,7 +173,7 @@ describe('Linked list', function () {
 			helper(insertLast, list, '1', '2', '3', '4', '5');
 			list.removeLast();
 
-			expect(list.elementAt(list.length())).to.equal('4');
+			expect(list.elementAt(list.size())).to.equal('4');
 		});
 	});
 
