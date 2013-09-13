@@ -1,9 +1,7 @@
 /**
  * LinkedList, implementation of an abstract list as a double linked list.
  *
- * @license data-structures
- * (c) Robert Ödling https://github.com/robertodling/data-structures
- * License: MIT (http://www.opensource.org/licenses/mit-license.php)
+ * Robert Ödling https://github.com/robertodling/data-structures
  */
 
 // 'LinkedList' will be added to global scope.
