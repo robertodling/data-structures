@@ -44,7 +44,7 @@ var LinkedList = (function () {
 		var i = 0;
 		var node = this;
 
-		while (node.next && i < steps) {
+		while (i < steps) {
 			node = node.next;
 			i++;
 		}
@@ -192,12 +192,18 @@ var LinkedList = (function () {
 	 */
 	proto.insertAt = function (index, element) {
 
-		var newNode = new Node(element);
-		var node = this.head.nodeAfter(index);
+		if (index < 0 || !this.head && index!==0) {
+			throw new Error("OutOfBoundException");
+		}
 
-		if (!node) {
-			this.insertLast(element)
+		if (!this.head && index === 0) {
+			this.insertLast(element);
 		} else {
+			var node = this.head.nodeAfter(index);
+			if (!node) {
+				throw new Error("OutOfBoundException");
+			}
+			var newNode = new Node(element);
 			node.insertBefore(this, newNode);
 		}
 
@@ -209,7 +215,17 @@ var LinkedList = (function () {
 	 * @return {object}
 	 */
 	proto.elementAt = function (index) {
+
+		if (!this.head || index < 0) {
+			throw new Error("NoSuchElementException");
+		}
+
 		var node = this.head.nodeAfter(index);
+
+		if (!node) {
+			throw new Error("NoSuchElementException");
+		}
+
 		return node.element;
 	};
 
