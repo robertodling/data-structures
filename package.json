@@ -36,7 +36,7 @@
     "javascript"
   ],
   "author": "Robert Ödling",
-  "license": "BSD",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/robertodling/data-structures/issues"
   }
