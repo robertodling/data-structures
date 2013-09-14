@@ -34,15 +34,16 @@ var LinkedList = (function () {
 
 	var nodeProto = Node.prototype;	// shorthand
 
+
 	/**
-	 * Returns node at specified number of steps after this node.
+	 * Returns node at specified number of steps after specified node.
 	 * @param {number} steps
 	 * @return {object} node
+	 * @private
 	 */
-	nodeProto.nodeAfter = function (steps) {
+	function _nodeAfter(node, steps) {
 
 		var i = 0;
-		var node = this;
 
 		while (i < steps) {
 			node = node.next;
@@ -50,70 +51,66 @@ var LinkedList = (function () {
 		}
 
 		return node;
-	};
+	}
 
 	/**
-	 * Inserts specified node after this node.
-	 * @param {object} list
+	 * Inserts newBode after specified node. Assumes that 'this' is bound to LinkedList.
 	 * @param {object} node
+	 * @param {object} newNode
+	 * @private
 	 */
-	nodeProto.insertAfter = function (list, node) {
 
-		node.prev = this;
-		node.next = this.next;
+	function _insertAfter(node, newNode) {
+
+		newNode.prev = node;
+		newNode.next = node.next;
+
+		if (!node.next) {
+			this.tail = newNode;
+		} else {
+			node.next.prev = newNode;
+		}
+		node.next = newNode;
+	}
+
+	/**
+	 * Inserts newBode before specified node. Assumes that 'this' is bound to LinkedList.
+	 * @param {object} node
+	 * @param {object} newNode
+	 * @private
+	 */
+	function _insertBefore(node, newNode) {
+
+		newNode.prev = node.prev;
+		newNode.next = node;
+
+		if (!node.prev) {
+			this.head = newNode;
+		} else {
+			node.prev.next = newNode;
+		}
+
+		node.prev = newNode;
+	}
+
+	/**
+	 * Removes a node from list. Assumes that 'this' is bound to LinkedList.
+	 * @param {object} node
+	 * @private
+	 */
+	function _removeNode(node) {
+		if (!node.prev) {
+			this.head = node.next;
+		} else {
+			node.prev.next = node.next;
+		}
 
 		if (!this.next) {
-			list.tail = node;
+			this.tail = node.prev;
 		} else {
-			this.next.prev = node;
+			node.next.prev = node.prev;
 		}
-		this.next = node;
-	};
-
-	/**
-	 * Inserts specified node before this node.
-	 * @param {object} list
-	 * @param {object} node
-	 */
-	nodeProto.insertBefore = function (list, node) {
-
-		node.prev = this.prev;
-		node.next = this;
-
-		if (!this.prev) {
-			list.head = node;
-		} else {
-			this.prev.next = node;
-		}
-
-		this.prev = node;
-	};
-
-	/**
-	 * Removes this node from list.
-	 * @param {object} list
-	 */
-	nodeProto.remove = function (list) {
-
-		if (!this.prev) {
-			list.head = this.next;
-		} else {
-			this.prev.next = this.next;
-		}
-
-		if (!this.next) {
-			list.tail = this.prev;
-		} else {
-			this.next.prev = this.prev;
-		}
-	};
-
-
-	/**
-	 * ----------
-	 * LinkedList
-	 * ----------
-	 */
+	}
 
 
 	/**
@@ -165,7 +162,8 @@ var LinkedList = (function () {
 			this.head = newNode;
 			this.tail = newNode;
 		} else {
-			this.head.insertBefore(this, newNode);
+			//this.head.insertBefore(this, newNode);
+			_insertBefore.call(this, this.head, newNode);
 		}
 	};
 
@@ -180,7 +178,7 @@ var LinkedList = (function () {
 		if (this.isEmpty()) {
 			this.insertFirst(element)
 		} else {
-			this.tail.insertAfter(this, node);
+			_insertAfter.call(this, this.tail, node);
 		}
 
 	};
@@ -201,12 +199,13 @@ var LinkedList = (function () {
 		if (this.isEmpty()) {
 			this.insertFirst(element);
 		} else {
-			var node = this.head.nodeAfter(index);
+			var node = _nodeAfter(this.head, index);
 			if (!node) {
 				throw new Error("OutOfBoundException");
 			}
 			var newNode = new Node(element);
-			node.insertBefore(this, newNode);
+			//node.insertBefore(this, newNode);
+			_insertBefore.call(this, node, newNode);
 		}
 
 	};
@@ -222,7 +221,7 @@ var LinkedList = (function () {
 			throw new Error("NoSuchElementException");
 		}
 
-		var node = this.head.nodeAfter(index);
+		var node = _nodeAfter(this.head, index);
 
 		if (!node) {
 			throw new Error("NoSuchElementException");
@@ -236,7 +235,7 @@ var LinkedList = (function () {
 	 * Remove first element.
 	 */
 	proto.removeFirst = function () {
-		this.head.remove(this);
+		_removeNode.call(this, this.head);
 	};
 
 
@@ -244,7 +243,7 @@ var LinkedList = (function () {
 	 * Remove last element.
 	 */
 	proto.removeLast = function () {
-		this.tail.remove(this);
+		_removeNode.call(this, this.tail);
 	};
 
 	/**
@@ -252,8 +251,8 @@ var LinkedList = (function () {
 	 * @param {number} index
 	 */
 	proto.removeAt = function (index) {
-		var node = this.head.nodeAfter(index);
-		node.remove(this);
+		var node = _nodeAfter(this.head, index);
+		_removeNode.call(this, node);
 	};
 
 	/**
@@ -278,7 +277,7 @@ var LinkedList = (function () {
 
 		arr.push(node.element);
 
-		while (node.next){
+		while (node.next) {
 			node = node.next;
 			arr.push(node.element);
 		}
