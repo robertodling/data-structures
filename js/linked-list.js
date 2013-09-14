@@ -11,32 +11,9 @@ var LinkedList = (function () {
 
 	'use strict';
 
-
-	/**
-	 * ----------
-	 * Node
-	 * ----------
-	 *
-	 * Node represents a node in a linked list.
-	 * It contain pointers to previous and next node in list and stores an element.
-	 *
-	 */
-
-
-	/**
-	 * Initialize with element.
-	 * @param {object} element
-	 * @constructor
-	 */
-	var Node = function (element) {
-		this.element = element;
-	};
-
-	var nodeProto = Node.prototype;	// shorthand
-
-
 	/**
 	 * Returns node at specified number of steps after specified node.
+	 * @param {number} node
 	 * @param {number} steps
 	 * @return {object} node
 	 * @private
@@ -59,7 +36,6 @@ var LinkedList = (function () {
 	 * @param {object} newNode
 	 * @private
 	 */
-
 	function _insertAfter(node, newNode) {
 
 		newNode.prev = node;
@@ -156,13 +132,12 @@ var LinkedList = (function () {
 	 */
 	proto.insertFirst = function (element) {
 
-		var newNode = new Node(element);
+		var newNode = {element: element};
 
 		if (this.isEmpty()) {
 			this.head = newNode;
 			this.tail = newNode;
 		} else {
-			//this.head.insertBefore(this, newNode);
 			_insertBefore.call(this, this.head, newNode);
 		}
 	};
@@ -173,7 +148,7 @@ var LinkedList = (function () {
 	 */
 	proto.insertLast = function (element) {
 
-		var node = new Node(element);
+		var node = {element: element};
 
 		if (this.isEmpty()) {
 			this.insertFirst(element)
@@ -203,8 +178,7 @@ var LinkedList = (function () {
 			if (!node) {
 				throw new Error("OutOfBoundException");
 			}
-			var newNode = new Node(element);
-			//node.insertBefore(this, newNode);
+			var newNode = {element: element};
 			_insertBefore.call(this, node, newNode);
 		}
 
