@@ -49,6 +49,8 @@ list.elementAt(4);	// 'e'
 Removing:
 
 ```
+var list = new LinkedList();
+
 list.insertLast('a');
 list.insertLast('b');
 list.insertLast('c');
@@ -105,6 +107,7 @@ Iterating:
 
 ```
 // vanilla style
+// not performant
 var list = new LinkedList([0, 1, 2]);
 for (var i = 0, size = list.size(); i < size; i++) {
 	list.elementAt(i) === i;	//true
@@ -125,4 +128,13 @@ while (iterator.hasNext()) {
 	i++;
 }
 
+```
+
+Finding elements:
+
+```
+var list = new LinkedList(['one', 'two', 'three]);
+
+list.indexOf('two');		// 1
+list.indexOf('unknown');	// -1
 ```

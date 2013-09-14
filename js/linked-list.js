@@ -144,7 +144,7 @@ var LinkedList = (function () {
 
 	/**
 	 * Returns number of elements in list.
-	 * @param {number}
+	 * @return {number}
 	 */
 	proto.size = function () {
 		return this._size;
@@ -152,7 +152,7 @@ var LinkedList = (function () {
 
 	/**
 	 * Insert specified element first in list, will increment index of all other elements.
-	 * @param {object} element
+	 * @param {*} element
 	 */
 	proto.insertFirst = function (element) {
 
@@ -167,7 +167,7 @@ var LinkedList = (function () {
 
 	/**
 	 * Insert specified element last in list, will _NOT_ increment index of any elements.
-	 * @param {object} element
+	 * @param {*} element
 	 */
 	proto.insertLast = function (element) {
 
@@ -184,7 +184,7 @@ var LinkedList = (function () {
 	/**
 	 * Insert specified element at specified index, will increment index of all following elements.
 	 * @param {number} index
-	 * @param {object} element
+	 * @param {*} element
 	 */
 	proto.insertAt = function (index, element) {
 
@@ -334,6 +334,25 @@ var LinkedList = (function () {
 			node = node.next;
 		} while (node);
 
+	};
+
+	/**
+	 * Find the index of specified element.
+	 * @param {*}
+	 */
+	proto.indexOf = function (element) {
+
+		var iterator = this.iterator();
+		var index = 0;
+
+		while (iterator.hasNext()) {
+			if (iterator.next() === element) {
+				return index;
+			}
+			index++;
+		}
+
+		return -1;
 	};
 
 	// export LinkedList constructor

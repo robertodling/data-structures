@@ -371,6 +371,24 @@ describe('Linked list', function () {
 			});
 		});
 
+		describe('Finding elements', function () {
+			it('should return index of existing item', function () {
+				var list = new LinkedList(['one', 'two','three']);
+				var result = list.indexOf('two');
+				console.log('res '+result);
+				expect(result).to.equal(1);
+			});
+
+			it.skip('should return -1 if item does not exist', function () {
+				var list = new LinkedList(['one', 'two','three']);
+				expect(list.indexOf('unknown')).to.equal(-1);
+			});
+			it.skip('should return -1 when trying to find item on empty list', function () {
+				var list = new LinkedList();
+				expect(list.indexOf('unknown')).to.equal(-1);
+			});
+		});
+
 		describe('Compound tests', function () {
 			var list = new LinkedList();
 
