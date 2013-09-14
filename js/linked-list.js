@@ -37,7 +37,7 @@ var LinkedList = (function () {
 	 * @private
 	 */
 	function _insertAfter(node, newNode) {
-
+		/* jshint validthis:true */
 		newNode.prev = node;
 		newNode.next = node.next;
 
@@ -58,7 +58,7 @@ var LinkedList = (function () {
 	 * @private
 	 */
 	function _insertBefore(node, newNode) {
-
+		/* jshint validthis:true */
 		newNode.prev = node.prev;
 		newNode.next = node;
 
@@ -79,7 +79,7 @@ var LinkedList = (function () {
 	 * @private
 	 */
 	function _insertEmpty(node) {
-
+		/* jshint validthis:true */
 		this.head = node;
 		this.tail = node;
 
@@ -92,6 +92,7 @@ var LinkedList = (function () {
 	 * @private
 	 */
 	function _removeNode(node) {
+		/* jshint validthis:true */
 		if (!node.prev) {
 			this.head = node.next;
 		} else {
@@ -108,6 +109,7 @@ var LinkedList = (function () {
 	}
 
 	function _isOutOfBounds(index) {
+		/* jshint validthis:true */
 		var outsideLowerBound = index < 0;
 		var outsideHigherBound = index > this.size();
 		return outsideLowerBound || outsideHigherBound;
@@ -276,16 +278,12 @@ var LinkedList = (function () {
 
 	proto.forEach = function (fn) {
 
-		if (this.isEmpty()) {
-			return;
-		}
-
+		var index = 0;
 		var node = this.head;
-		fn(node.element, 0);
-		while (node.next) {
+		do {
+			fn(node.element, index++);
 			node = node.next;
-			fn(node.element, 0);
-		}
+		} while (node);
 	};
 
 	/**
@@ -304,8 +302,8 @@ var LinkedList = (function () {
 	};
 
 	/**
-	 * Add contents of array to list.
-	 * @param {array}
+	 * Add contents of specified list to list.
+	 * @param {object}
 	 * @return
 	 */
 	proto.insertList = function (list) {

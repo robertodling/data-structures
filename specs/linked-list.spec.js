@@ -1,5 +1,6 @@
+/* global describe, it, expect, LinkedList*/
 describe('Linked list', function () {
-
+	'use strict';
 	/**
 	 * Helper functions to ease in setting up test cases
 	 *
@@ -226,18 +227,18 @@ describe('Linked list', function () {
 		describe('Empty', function () {
 			it('should return true on newly created list', function () {
 				var list = new LinkedList();
-				expect(list.isEmpty()).to.be.true;
+				expect(list.isEmpty()).to.equal(true);
 			});
 			it('should return false on list with items', function () {
 				var list = new LinkedList();
 				list.insertFirst('value');
-				expect(list.isEmpty()).to.be.false;
+				expect(list.isEmpty()).to.equal(false);
 			});
 			it('should return true on list that has been cleared', function () {
 				var list = new LinkedList();
 				list.insertFirst('value');
 				list.clear();
-				expect(list.isEmpty()).to.be.true;
+				expect(list.isEmpty()).to.equal(true);
 			});
 		});
 	});
@@ -253,42 +254,42 @@ describe('Linked list', function () {
 
 				expect(function () {
 					list.insertAt(1);
-				}).to.throw("OutOfBoundException")
+				}).to.throw("OutOfBoundException");
 			});
 
 			it('should throw OutOfBoundException when inserting outsize of lower bound ', function () {
 				var list = new LinkedList();
 				expect(function () {
 					list.insertAt(-1);
-				}).to.throw("OutOfBoundException")
+				}).to.throw("OutOfBoundException");
 			});
 
 			it('should throw OutOfBoundException when retrieving outsize of higher bound ', function () {
 				var list = new LinkedList();
 				expect(function () {
 					list.elementAt(1);
-				}).to.throw("OutOfBoundException")
+				}).to.throw("OutOfBoundException");
 			});
 
 			it('should throw OutOfBoundException when retrieving outsize of lower bound ', function () {
 				var list = new LinkedList();
 				expect(function () {
 					list.elementAt(-1);
-				}).to.throw("OutOfBoundException")
+				}).to.throw("OutOfBoundException");
 			});
 
 			it('should throw OutOfBoundException when removing outsize of higher bound ', function () {
 				var list = new LinkedList();
 				expect(function () {
 					list.removeAt(1);
-				}).to.throw("OutOfBoundException")
+				}).to.throw("OutOfBoundException");
 			});
 
 			it('should throw OutOfBoundException when removing outsize of lower bound ', function () {
 				var list = new LinkedList();
 				expect(function () {
 					list.removeAt(-1);
-				}).to.throw("OutOfBoundException")
+				}).to.throw("OutOfBoundException");
 			});
 		});
 
@@ -344,7 +345,13 @@ describe('Linked list', function () {
 		});
 
 		describe('Iterating', function () {
+			it('should run callback for each element', function () {
+				var list = new LinkedList([0, 1, 2]);
+				list.forEach(function (element, index) {
 
+					expect(element).to.equal(index);
+				});
+			});
 		});
 
 		describe('Compound tests', function () {
@@ -393,9 +400,9 @@ describe('Linked list', function () {
 
 			// working with arrays
 
-			var arr = ["1", "2", "3", "4"];
+			arr = ["1", "2", "3", "4"];
 
-			var list = new LinkedList(arr);
+			list = new LinkedList(arr);
 
 			expect(list.elementAt(0)).to.equal('1');
 			expect(list.elementAt(1)).to.equal('2');
@@ -416,7 +423,7 @@ describe('Linked list', function () {
 			expect(arr[2]).to.equal('3');
 			expect(arr[3]).to.equal('4');
 
-			var list = new LinkedList();
+			list = new LinkedList();
 
 
 			try {

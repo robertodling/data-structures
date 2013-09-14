@@ -7,6 +7,16 @@ Implementation of an abstract list as a double linked list. Assumes ES5.
 
 ### Examples
 
+Constructing
+
+```
+var emptyList = new LinkedList();
+
+var listFromArray = new LinkedList([1,2,3,4]);
+
+var copiedList = new LinkedList(listFromArray);
+```
+
 Inserting and retrieving:
 
 ```
@@ -25,6 +35,16 @@ list.elementAt(2);	// 'c'
 list.elementAt(3);	// 'd'
 
 list.size();		// 4
+
+
+var secondList = new LinkedList();
+
+secondList.insertLast('e');
+
+list.addList(secondList);
+
+list.elementAt(4);	// 'e'
+
 ```
 
 Removing:
@@ -43,6 +63,9 @@ list.removeLast();
 list.size();			// 2
 list.elementAt(0);		// 'b'
 list.elementAt(1);		// 'd'
+
+list.clear();
+list.size();			// 0
 ```
 
 Working with arrays:
@@ -77,4 +100,10 @@ try {
 } catch (err) {
 	err.message; 		// 'OutOfBoundException';
 }
+```
+
+Iterating:
+
+```
+
 ```
