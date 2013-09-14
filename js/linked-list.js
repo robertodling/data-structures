@@ -214,7 +214,6 @@ var LinkedList = (function () {
 		}
 
 		var node = _nodeAfter(this.head, index);
-
 		return node.element;
 	};
 
@@ -276,15 +275,6 @@ var LinkedList = (function () {
 		return arr;
 	};
 
-	proto.forEach = function (fn) {
-
-		var index = 0;
-		var node = this.head;
-		do {
-			fn(node.element, index++);
-			node = node.next;
-		} while (node);
-	};
 
 	/**
 	 * Add contents of array to list.
@@ -315,8 +305,15 @@ var LinkedList = (function () {
 		}
 	};
 
+	/**
+	 * Return an iterator being backed up by this list.
+	 * @return {object}
+	 */
 	proto.iterator = function () {
+		// create special start node so first next() will point to head.
 		var node = {next: this.head};
+
+		// iterator
 		return {
 			hasNext: function () {
 				return !!node.next;
@@ -326,6 +323,21 @@ var LinkedList = (function () {
 				return node.element;
 			}
 		};
+	};
+
+	/**
+	 * Invoke function on each element in list
+	 * @param {function}
+	 */
+	proto.forEach = function (fn) {
+
+		var index = 0;
+		var node = this.head;
+		do {
+			fn(node.element, index++);
+			node = node.next;
+		} while (node);
+
 	};
 
 	// export LinkedList constructor

@@ -3,7 +3,7 @@ data-structures
 
 ## Linked list
 
-Implementation of an abstract list as a double linked list. Assumes ES5.
+Implementation of an abstract list as a double linked list inspired by Java Collections. Assumes ES5.
 
 ### Examples
 
