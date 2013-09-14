@@ -173,7 +173,7 @@ describe('Linked list', function () {
 			helper(insertLast, list, '1', '2', '3', '4', '5');
 			list.removeLast();
 
-			expect(list.elementAt(list.size()-1)).to.equal('4');
+			expect(list.elementAt(list.size() - 1)).to.equal('4');
 		});
 	});
 
@@ -209,36 +209,62 @@ describe('Linked list', function () {
 
 	describe('Error handling', function () {
 
-		it('should throw NoSuchElementException when retrieving element on empty list', function () {
-			var list = new LinkedList();
-			expect(function (){
-				list.elementAt(0);
-			}).to.throw("NoSuchElementException")
+		describe('Out of bounds', function () {
+
+
+			it('should throw OutOfBoundException when inserting outsize of positive bound ', function () {
+				var list = new LinkedList();
+
+				expect(function () {
+					list.insertAt(1);
+				}).to.throw("OutOfBoundException")
+			});
+
+			it('should throw OutOfBoundException when inserting outsize of negative bound ', function () {
+				var list = new LinkedList();
+
+				expect(function () {
+					list.insertAt(-1);
+				}).to.throw("OutOfBoundException")
+			});
+
+			it('should throw OutOfBoundException when retrieving outsize of positive bound ', function () {
+				var list = new LinkedList();
+				list.insertFirst("value");
+				expect(function () {
+					list.elementAt(1);
+				}).to.throw("OutOfBoundException")
+			});
+
+			it('should throw OutOfBoundException when retrieving outsize of negative bound ', function () {
+				var list = new LinkedList();
+				list.insertFirst("value");
+				expect(function () {
+					list.elementAt(-1);
+				}).to.throw("OutOfBoundException")
+			});
+
+			it('should throw OutOfBoundException when removing outsize of positive bound ', function () {
+				var list = new LinkedList();
+				list.insertFirst("value");
+				expect(function () {
+					list.removeAt(1);
+				}).to.throw("OutOfBoundException")
+			});
+
+			it('should throw OutOfBoundException when removing outsize of negative bound ', function () {
+				var list = new LinkedList();
+				list.insertFirst("value");
+				expect(function () {
+					list.removeAt(-1);
+				}).to.throw("OutOfBoundException")
+			});
+		});
+		
+		describe('', function () {
+			
 		});
 
-		it('should throw NoSuchElementException when retrieving element out of bound', function () {
-			var list = new LinkedList();
-			list.insertFirst("value");
-			expect(function (){
-				list.elementAt(1);
-			}).to.throw("NoSuchElementException")
-		});
-
-		it('should throw NoSuchElementException when retrieving element on negative index', function () {
-			var list = new LinkedList();
-			list.insertFirst("value");
-			expect(function (){
-				list.elementAt(-1);
-			}).to.throw("NoSuchElementException")
-		});
-
-		it('should throw OutOfBoundException when inserting out of bound', function () {
-			var list = new LinkedList();
-
-			expect(function (){
-				list.insertAt(1);
-			}).to.throw("OutOfBoundException")
-		});
 	});
 
 	describe('To array', function () {
@@ -261,14 +287,11 @@ describe('Linked list', function () {
 			expect(arr[3]).to.equal('4');
 			expect(arr[4]).to.equal('5');
 		});
-/*
-		helper(insertLast, list, '1', '2', '3', '4', '5');
+		/*
+		 helper(insertLast, list, '1', '2', '3', '4', '5');
 
-		var arr*/
+		 var arr*/
 	});
-
-
-
 
 
 });

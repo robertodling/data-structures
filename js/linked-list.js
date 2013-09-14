@@ -107,6 +107,10 @@ var LinkedList = (function () {
 		this._size--;
 	}
 
+	function _isOutOfBounds(index) {
+		return index < 0 || index >= this.size();
+	}
+
 
 	/**
 	 * Initialize list.
@@ -172,9 +176,7 @@ var LinkedList = (function () {
 	 */
 	proto.insertAt = function (index, element) {
 
-		// negative index always out bound
-		// if empty only allow adding at index 0
-		if (index < 0 || this.isEmpty() && index !== 0) {
+		if (_isOutOfBounds.call(this, index)) {
 			throw new Error("OutOfBoundException");
 		}
 
@@ -182,9 +184,6 @@ var LinkedList = (function () {
 			this.insertFirst(element);
 		} else {
 			var node = _nodeAfter(this.head, index);
-			if (!node) {
-				throw new Error("OutOfBoundException");
-			}
 			var newNode = {element: element};
 			_insertBefore.call(this, node, newNode);
 		}
@@ -198,15 +197,11 @@ var LinkedList = (function () {
 	 */
 	proto.elementAt = function (index) {
 
-		if (!this.head || index < 0) {
-			throw new Error("NoSuchElementException");
+		if (_isOutOfBounds.call(this, index)) {
+			throw new Error("OutOfBoundException");
 		}
 
 		var node = _nodeAfter(this.head, index);
-
-		if (!node) {
-			throw new Error("NoSuchElementException");
-		}
 
 		return node.element;
 	};
@@ -232,6 +227,9 @@ var LinkedList = (function () {
 	 * @param {number} index
 	 */
 	proto.removeAt = function (index) {
+		if (_isOutOfBounds.call(this, index)) {
+			throw new Error("OutOfBoundException");
+		}
 		var node = _nodeAfter(this.head, index);
 		_removeNode.call(this, node);
 	};
