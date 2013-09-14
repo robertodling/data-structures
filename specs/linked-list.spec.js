@@ -13,6 +13,11 @@ describe('Linked list', function () {
 		list.insertLast(element);
 	}
 
+	function insertList(list, listTwo) {
+		list.insertLast(listTwo);
+	}
+
+
 	function helper(fn, list) {
 		var args = [].slice.call(arguments);
 		args.shift();
@@ -30,7 +35,7 @@ describe('Linked list', function () {
 
 	}
 
-	describe('Length method', function () {
+	describe('Size method', function () {
 
 		it('should have zero size if empty', function () {
 			var list = new LinkedList();
@@ -67,11 +72,11 @@ describe('Linked list', function () {
 			expect(list.size()).to.equal(2048);
 		});
 
-		it.skip('should have size 112 if 122 items inserted at index zero', function () {
+		it('should have size 112 if 122 items inserted at index zero', function () {
 			var list = new LinkedList();
 
 			batcher(function (list, value) {
-				list.insertAt(1, value);
+				list.insertAt(0, value);
 			}, list, 'foo', 2048);
 
 			expect(list.size()).to.equal(2048);
@@ -94,120 +99,156 @@ describe('Linked list', function () {
 
 	});
 
-	describe('Insert first', function () {
 
-		it('should insert in correct order', function () {
-			var list = new LinkedList();
+	describe('Inserting', function () {
 
-			helper(insertFirst, list, '1', '2', '3', '4', '5', '6', '7', '8', '9', '10');
 
-			expect(list.elementAt(0)).to.equal('10');
-			expect(list.elementAt(1)).to.equal('9');
-			expect(list.elementAt(2)).to.equal('8');
-			expect(list.elementAt(3)).to.equal('7');
-			expect(list.elementAt(4)).to.equal('6');
-			expect(list.elementAt(5)).to.equal('5');
-			expect(list.elementAt(6)).to.equal('4');
-			expect(list.elementAt(7)).to.equal('3');
-			expect(list.elementAt(8)).to.equal('2');
-			expect(list.elementAt(9)).to.equal('1');
+		describe('Insert first', function () {
+
+			it('should insert in correct order', function () {
+				var list = new LinkedList();
+
+				helper(insertFirst, list, '1', '2', '3', '4', '5', '6', '7', '8', '9', '10');
+
+				expect(list.elementAt(0)).to.equal('10');
+				expect(list.elementAt(1)).to.equal('9');
+				expect(list.elementAt(2)).to.equal('8');
+				expect(list.elementAt(3)).to.equal('7');
+				expect(list.elementAt(4)).to.equal('6');
+				expect(list.elementAt(5)).to.equal('5');
+				expect(list.elementAt(6)).to.equal('4');
+				expect(list.elementAt(7)).to.equal('3');
+				expect(list.elementAt(8)).to.equal('2');
+				expect(list.elementAt(9)).to.equal('1');
+			});
+		});
+
+		describe('Insert last', function () {
+			it('should insert in correct order', function () {
+				var list = new LinkedList();
+
+				helper(insertLast, list, '1', '2', '3', '4', '5', '6', '7', '8', '9', '10');
+
+				expect(list.elementAt(9)).to.equal('10');
+				expect(list.elementAt(8)).to.equal('9');
+				expect(list.elementAt(7)).to.equal('8');
+				expect(list.elementAt(6)).to.equal('7');
+				expect(list.elementAt(5)).to.equal('6');
+				expect(list.elementAt(4)).to.equal('5');
+				expect(list.elementAt(3)).to.equal('4');
+				expect(list.elementAt(2)).to.equal('3');
+				expect(list.elementAt(1)).to.equal('2');
+				expect(list.elementAt(0)).to.equal('1');
+			});
+		});
+
+		describe('Inserting at', function () {
+			it('should insert node at correct position', function () {
+
+
+				var list = new LinkedList();
+				batcher(insertFirst, list, 'element', 12);
+
+				list.insertAt(5, 'five');
+
+				expect(list.size()).to.equal(13);
+				expect(list.elementAt(5)).to.equal('five');
+			});
+		});
+
+		describe('Inserting list', function () {
+			it('should add all elements from list', function () {
+
+
+				var listOne = new LinkedList();
+				helper(insertList, listOne, '1', '2', '3');
+
+				var listTwo = new LinkedList();
+				helper(insertList, listTwo, '4', '5', '6');
+
+				var list = new LinkedList();
+				list.insertList(listOne);
+				list.insertList(listTwo);
+
+				expect(list.elementAt(0)).to.equal('1');
+				expect(list.elementAt(1)).to.equal('2');
+				expect(list.elementAt(2)).to.equal('3');
+				expect(list.elementAt(3)).to.equal('4');
+				expect(list.elementAt(4)).to.equal('5');
+				expect(list.elementAt(5)).to.equal('6');
+			});
+
+		});
+
+	});
+
+	describe('Removing', function () {
+
+
+		describe('Remove first ', function () {
+
+			it('it should remove first element', function () {
+
+				var list = new LinkedList();
+				helper(insertFirst, list, '1', '2', '3', '4', '5');
+				list.removeFirst();
+
+				expect(list.elementAt(0)).to.equal('4');
+			});
+
+
+		});
+
+		describe('Remove last ', function () {
+
+			it('it should remove last element', function () {
+
+				var list = new LinkedList();
+				helper(insertLast, list, '1', '2', '3', '4', '5');
+				list.removeLast();
+
+				expect(list.elementAt(list.size() - 1)).to.equal('4');
+			});
+		});
+
+		describe('Remove at ', function () {
+
+			it('it should remove item from correct position element', function () {
+
+				var list = new LinkedList();
+				helper(insertLast, list, '1', '2', '3', '4', '5');
+				list.removeAt(2);
+
+				expect(list.elementAt(2)).to.equal('4');
+			});
+		});
+
+		describe('Empty', function () {
+			it('should return true on newly created list', function () {
+				var list = new LinkedList();
+				expect(list.isEmpty()).to.be.true;
+			});
+			it('should return false on list with items', function () {
+				var list = new LinkedList();
+				list.insertFirst('value');
+				expect(list.isEmpty()).to.be.false;
+			});
+			it('should return true on list that has been cleared', function () {
+				var list = new LinkedList();
+				list.insertFirst('value');
+				list.clear();
+				expect(list.isEmpty()).to.be.true;
+			});
 		});
 	});
 
-	describe('Insert last', function () {
-		it('should insert in correct order', function () {
-			var list = new LinkedList();
-
-			helper(insertLast, list, '1', '2', '3', '4', '5', '6', '7', '8', '9', '10');
-
-			expect(list.elementAt(9)).to.equal('10');
-			expect(list.elementAt(8)).to.equal('9');
-			expect(list.elementAt(7)).to.equal('8');
-			expect(list.elementAt(6)).to.equal('7');
-			expect(list.elementAt(5)).to.equal('6');
-			expect(list.elementAt(4)).to.equal('5');
-			expect(list.elementAt(3)).to.equal('4');
-			expect(list.elementAt(2)).to.equal('3');
-			expect(list.elementAt(1)).to.equal('2');
-			expect(list.elementAt(0)).to.equal('1');
-		});
-	});
-
-	describe('Inserting at ', function () {
-		it('should insert node at correct position', function () {
-
-
-			var list = new LinkedList();
-			batcher(insertFirst, list, 'element', 12);
-
-			list.insertAt(5, 'five');
-
-			expect(list.size()).to.equal(13);
-			expect(list.elementAt(5)).to.equal('five');
-		});
-	});
-	describe('Remove first ', function () {
-
-		it('it should remove first element', function () {
-
-			var list = new LinkedList();
-			helper(insertFirst, list, '1', '2', '3', '4', '5');
-			list.removeFirst();
-
-			expect(list.elementAt(0)).to.equal('4');
-		});
-
-
-	});
-
-	describe('Remove last ', function () {
-
-		it('it should remove last element', function () {
-
-			var list = new LinkedList();
-			helper(insertLast, list, '1', '2', '3', '4', '5');
-			list.removeLast();
-
-			expect(list.elementAt(list.size() - 1)).to.equal('4');
-		});
-	});
-
-	describe('Remove at ', function () {
-
-		it('it should remove item from correct position element', function () {
-
-			var list = new LinkedList();
-			helper(insertLast, list, '1', '2', '3', '4', '5');
-			list.removeAt(2);
-
-			expect(list.elementAt(2)).to.equal('4');
-		});
-	});
-
-	describe('Empty', function () {
-		it('should return true on newly created list', function () {
-			var list = new LinkedList();
-			expect(list.isEmpty()).to.be.true;
-		});
-		it('should return false on list with items', function () {
-			var list = new LinkedList();
-			list.insertFirst('value');
-			expect(list.isEmpty()).to.be.false;
-		});
-		it('should return true on list that has been cleared', function () {
-			var list = new LinkedList();
-			list.insertFirst('value');
-			list.clear();
-			expect(list.isEmpty()).to.be.true;
-		});
-	});
 
 	describe('Error handling', function () {
 
 		describe('Out of bounds', function () {
 
 
-			it('should throw OutOfBoundException when inserting outsize of positive bound ', function () {
+			it('should throw OutOfBoundException when inserting outsize of higher bound ', function () {
 				var list = new LinkedList();
 
 				expect(function () {
@@ -215,41 +256,36 @@ describe('Linked list', function () {
 				}).to.throw("OutOfBoundException")
 			});
 
-			it('should throw OutOfBoundException when inserting outsize of negative bound ', function () {
+			it('should throw OutOfBoundException when inserting outsize of lower bound ', function () {
 				var list = new LinkedList();
-
 				expect(function () {
 					list.insertAt(-1);
 				}).to.throw("OutOfBoundException")
 			});
 
-			it('should throw OutOfBoundException when retrieving outsize of positive bound ', function () {
+			it('should throw OutOfBoundException when retrieving outsize of higher bound ', function () {
 				var list = new LinkedList();
-				list.insertFirst("value");
 				expect(function () {
 					list.elementAt(1);
 				}).to.throw("OutOfBoundException")
 			});
 
-			it('should throw OutOfBoundException when retrieving outsize of negative bound ', function () {
+			it('should throw OutOfBoundException when retrieving outsize of lower bound ', function () {
 				var list = new LinkedList();
-				list.insertFirst("value");
 				expect(function () {
 					list.elementAt(-1);
 				}).to.throw("OutOfBoundException")
 			});
 
-			it('should throw OutOfBoundException when removing outsize of positive bound ', function () {
+			it('should throw OutOfBoundException when removing outsize of higher bound ', function () {
 				var list = new LinkedList();
-				list.insertFirst("value");
 				expect(function () {
 					list.removeAt(1);
 				}).to.throw("OutOfBoundException")
 			});
 
-			it('should throw OutOfBoundException when removing outsize of negative bound ', function () {
+			it('should throw OutOfBoundException when removing outsize of lower bound ', function () {
 				var list = new LinkedList();
-				list.insertFirst("value");
 				expect(function () {
 					list.removeAt(-1);
 				}).to.throw("OutOfBoundException")
@@ -257,134 +293,140 @@ describe('Linked list', function () {
 		});
 
 
-	});
+		describe('Working with arrays', function () {
 
-	describe('Creating from array', function () {
-		it('should add all elements from array', function () {
+
+			describe('Creating from array', function () {
+				it('should add all elements from array', function () {
+					var arr = ["1", "2", "3", "4"];
+					var list = new LinkedList(arr);
+					expect(list.elementAt(0)).to.equal('1');
+					expect(list.elementAt(1)).to.equal('2');
+					expect(list.elementAt(2)).to.equal('3');
+					expect(list.elementAt(3)).to.equal('4');
+				});
+			});
+
+			describe('Adding array', function () {
+				it('should add all elements from array', function () {
+					var arr = ["1", "2", "3", "4"];
+					var list = new LinkedList();
+					list.insertArray(arr);
+					expect(list.elementAt(0)).to.equal('1');
+					expect(list.elementAt(1)).to.equal('2');
+					expect(list.elementAt(2)).to.equal('3');
+					expect(list.elementAt(3)).to.equal('4');
+				});
+			});
+
+			describe('To array', function () {
+
+				it('should return empty array on empty list', function () {
+					var list = new LinkedList();
+					var arr = list.toArray();
+					expect(arr).to.be.an('array');
+					expect(arr.length).to.equal(0);
+				});
+
+				it('should return array with correct element', function () {
+					var list = new LinkedList();
+					helper(insertLast, list, '1', '2', '3', '4', '5');
+					var arr = list.toArray();
+
+					expect(arr[0]).to.equal('1');
+					expect(arr[1]).to.equal('2');
+					expect(arr[2]).to.equal('3');
+					expect(arr[3]).to.equal('4');
+					expect(arr[4]).to.equal('5');
+				});
+
+			});
+		});
+
+		describe('Iterating', function () {
+
+		});
+
+		describe('Compound tests', function () {
+			var list = new LinkedList();
+
+			//Inserting and retrieving
+
+			list.insertFirst('b');
+			list.insertFirst('a');
+
+			list.insertLast('d');
+
+			list.insertAt(2, 'c');
+
+			expect(list.elementAt(0)).to.equal('a');
+			expect(list.elementAt(1)).to.equal('b');
+			expect(list.elementAt(2)).to.equal('c');
+			expect(list.elementAt(3)).to.equal('d');
+
+			expect(list.size()).to.equal(4);
+
+			list.clear();
+
+			// removing
+			list.insertLast('a');
+			list.insertLast('b');
+			list.insertLast('c');
+			list.insertLast('d');
+			list.insertLast('e');
+
+			expect(list.size()).to.equal(5);
+
+			list.removeAt(2);
+			expect(list.size()).to.equal(4);
+			expect(list.elementAt(2)).to.equal('d');
+
+			list.removeFirst();
+			expect(list.size()).to.equal(3);
+			expect(list.elementAt(0)).to.equal('b');
+
+			list.removeLast();
+			expect(list.size()).to.equal(2);
+			expect(list.elementAt(1)).to.equal('d');
+
+			list.clear();
+
+			// working with arrays
+
 			var arr = ["1", "2", "3", "4"];
+
 			var list = new LinkedList(arr);
+
 			expect(list.elementAt(0)).to.equal('1');
 			expect(list.elementAt(1)).to.equal('2');
 			expect(list.elementAt(2)).to.equal('3');
 			expect(list.elementAt(3)).to.equal('4');
-		});
-	});
 
-	describe('Adding array', function () {
-		it('should add all elements from array', function () {
-			var arr = ["1", "2", "3", "4"];
-			var list = new LinkedList();
-			list.addArray(arr);
+			list.clear();
+
+			list.insertArray(arr);
 			expect(list.elementAt(0)).to.equal('1');
 			expect(list.elementAt(1)).to.equal('2');
 			expect(list.elementAt(2)).to.equal('3');
 			expect(list.elementAt(3)).to.equal('4');
-		});
-	});
 
-	describe('To array', function () {
-
-		it('should return empty array on empty list', function () {
-			var list = new LinkedList();
 			var arr = list.toArray();
-			expect(arr).to.be.an('array');
-			expect(arr.length).to.equal(0);
-		});
-
-		it('should return array with correct element', function () {
-			var list = new LinkedList();
-			helper(insertLast, list, '1', '2', '3', '4', '5');
-			var arr = list.toArray();
-
 			expect(arr[0]).to.equal('1');
 			expect(arr[1]).to.equal('2');
 			expect(arr[2]).to.equal('3');
 			expect(arr[3]).to.equal('4');
-			expect(arr[4]).to.equal('5');
+
+			var list = new LinkedList();
+
+
+			try {
+				list.elementAt(-1);
+			} catch (err) {
+				expect(err.message).to.equal('OutOfBoundException');
+			}
+
 		});
 
 	});
-
-	describe('Compound tests', function () {
-		var list = new LinkedList();
-
-		//Inserting and retrieving
-
-		list.insertFirst('b');
-		list.insertFirst('a');
-
-		list.insertLast('d');
-
-		list.insertAt(2, 'c');
-
-		expect(list.elementAt(0)).to.equal('a');
-		expect(list.elementAt(1)).to.equal('b');
-		expect(list.elementAt(2)).to.equal('c');
-		expect(list.elementAt(3)).to.equal('d');
-
-		expect(list.size()).to.equal(4);
-
-		list.clear();
-
-		// removing
-		list.insertLast('a');
-		list.insertLast('b');
-		list.insertLast('c');
-		list.insertLast('d');
-		list.insertLast('e');
-
-		expect(list.size()).to.equal(5);
-
-		list.removeAt(2);
-		expect(list.size()).to.equal(4);
-		expect(list.elementAt(2)).to.equal('d');
-
-		list.removeFirst();
-		expect(list.size()).to.equal(3);
-		expect(list.elementAt(0)).to.equal('b');
-
-		list.removeLast();
-		expect(list.size()).to.equal(2);
-		expect(list.elementAt(1)).to.equal('d');
-
-		list.clear();
-
-		// working with arrays
-
-		var arr = ["1", "2", "3", "4"];
-
-		var list = new LinkedList(arr);
-
-		expect(list.elementAt(0)).to.equal('1');
-		expect(list.elementAt(1)).to.equal('2');
-		expect(list.elementAt(2)).to.equal('3');
-		expect(list.elementAt(3)).to.equal('4');
-
-		list.clear();
-
-		list.addArray(arr);
-		expect(list.elementAt(0)).to.equal('1');
-		expect(list.elementAt(1)).to.equal('2');
-		expect(list.elementAt(2)).to.equal('3');
-		expect(list.elementAt(3)).to.equal('4');
-
-		var arr = list.toArray();
-		expect(arr[0]).to.equal('1');
-		expect(arr[1]).to.equal('2');
-		expect(arr[2]).to.equal('3');
-		expect(arr[3]).to.equal('4');
-
-		var list = new LinkedList();
-
-
-		try {
-			list.elementAt(-1);
-		} catch (err) {
-			expect(err.message).to.equal('OutOfBoundException');
-		}
-
-	});
-
-
 });
 

@@ -108,7 +108,9 @@ var LinkedList = (function () {
 	}
 
 	function _isOutOfBounds(index) {
-		return index < 0 || index >= this.size();
+		var outsideLowerBound = index < 0;
+		var outsideHigherBound = index > this.size();
+		return outsideLowerBound || outsideHigherBound;
 	}
 
 
@@ -118,9 +120,14 @@ var LinkedList = (function () {
 	 * @param {array}
 	 * @constructor
 	 */
-	var LinkedList = function (arr) {
+	var LinkedList = function (elements) {
 		this.clear();
-		this.addArray(arr);
+		if (elements && elements instanceof Array) {
+			this.insertArray(elements);
+		} else if (elements && elements instanceof LinkedList) {
+			this.insertList(elements);
+		}
+
 	};
 
 	var proto = LinkedList.prototype;	// shorthand
@@ -267,15 +274,44 @@ var LinkedList = (function () {
 		return arr;
 	};
 
+	proto.forEach = function (fn) {
+
+		if (this.isEmpty()) {
+			return;
+		}
+
+		var node = this.head;
+		fn(node.element, 0);
+		while (node.next) {
+			node = node.next;
+			fn(node.element, 0);
+		}
+	};
+
 	/**
 	 * Add contents of array to list.
 	 * @param {array}
 	 * @return
 	 */
-	proto.addArray = function (arr) {
+	proto.insertArray = function (arr) {
 		var self = this;
 		if (arr && arr instanceof Array) {
 			arr.forEach(function (element) {
+				self.insertLast(element);
+			});
+		}
+
+	};
+
+	/**
+	 * Add contents of array to list.
+	 * @param {array}
+	 * @return
+	 */
+	proto.insertList = function (list) {
+		var self = this;
+		if (list && list instanceof LinkedList) {
+			list.forEach(function (element) {
 				self.insertLast(element);
 			});
 		}
