@@ -3,7 +3,7 @@ data-structures
 
 ## Linked list
 
-Implementation of an abstract list as a double linked list. Assumes EC5.
+Implementation of an abstract list as a double linked list. Assumes ES5.
 
 ### Examples
 
