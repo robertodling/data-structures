@@ -1,39 +1,34 @@
-/**
- * Helper functions to ease in setting up test cases
- *
- * */
+describe('Linked list', function () {
 
-function insertFirst(list, element) {
-	list.insertFirst(element);
-}
+	/**
+	 * Helper functions to ease in setting up test cases
+	 *
+	 * */
 
-function insertLast(list, element) {
-	list.insertLast(element);
-}
-
-function helper(fn, list) {
-	var args = [].slice.call(arguments);
-	args.shift();
-	args.shift();
-	args.forEach(function (element) {
-		fn(list, element);
-	});
-}
-
-function batcher(fn, list, element, count) {
-
-	for (var i = 0; i < count; i++) {
-		fn(list, element);
+	function insertFirst(list, element) {
+		list.insertFirst(element);
 	}
 
-}
+	function insertLast(list, element) {
+		list.insertLast(element);
+	}
 
-/**
- * Specs below
- *
- * */
+	function helper(fn, list) {
+		var args = [].slice.call(arguments);
+		args.shift();
+		args.shift();
+		args.forEach(function (element) {
+			fn(list, element);
+		});
+	}
 
-describe('Linked list', function () {
+	function batcher(fn, list, element, count) {
+
+		for (var i = 0; i < count; i++) {
+			fn(list, element);
+		}
+
+	}
 
 	describe('Length method', function () {
 
@@ -260,11 +255,31 @@ describe('Linked list', function () {
 				}).to.throw("OutOfBoundException")
 			});
 		});
-		
-		describe('', function () {
-			
-		});
 
+
+	});
+
+	describe('Creating from array', function () {
+		it('should add all elements from array', function () {
+			var arr = ["1", "2", "3", "4"];
+			var list = new LinkedList(arr);
+			expect(list.elementAt(0)).to.equal('1');
+			expect(list.elementAt(1)).to.equal('2');
+			expect(list.elementAt(2)).to.equal('3');
+			expect(list.elementAt(3)).to.equal('4');
+		});
+	});
+
+	describe('Adding array', function () {
+		it('should add all elements from array', function () {
+			var arr = ["1", "2", "3", "4"];
+			var list = new LinkedList();
+			list.addArray(arr);
+			expect(list.elementAt(0)).to.equal('1');
+			expect(list.elementAt(1)).to.equal('2');
+			expect(list.elementAt(2)).to.equal('3');
+			expect(list.elementAt(3)).to.equal('4');
+		});
 	});
 
 	describe('To array', function () {
@@ -280,18 +295,96 @@ describe('Linked list', function () {
 			var list = new LinkedList();
 			helper(insertLast, list, '1', '2', '3', '4', '5');
 			var arr = list.toArray();
-			console.log(arr);
+
 			expect(arr[0]).to.equal('1');
 			expect(arr[1]).to.equal('2');
 			expect(arr[2]).to.equal('3');
 			expect(arr[3]).to.equal('4');
 			expect(arr[4]).to.equal('5');
 		});
-		/*
-		 helper(insertLast, list, '1', '2', '3', '4', '5');
 
-		 var arr*/
+	});
+
+	describe('Compound tests', function () {
+		var list = new LinkedList();
+
+		//Inserting and retrieving
+
+		list.insertFirst('b');
+		list.insertFirst('a');
+
+		list.insertLast('d');
+
+		list.insertAt(2, 'c');
+
+		expect(list.elementAt(0)).to.equal('a');
+		expect(list.elementAt(1)).to.equal('b');
+		expect(list.elementAt(2)).to.equal('c');
+		expect(list.elementAt(3)).to.equal('d');
+
+		expect(list.size()).to.equal(4);
+
+		list.clear();
+
+		// removing
+		list.insertLast('a');
+		list.insertLast('b');
+		list.insertLast('c');
+		list.insertLast('d');
+		list.insertLast('e');
+
+		expect(list.size()).to.equal(5);
+
+		list.removeAt(2);
+		expect(list.size()).to.equal(4);
+		expect(list.elementAt(2)).to.equal('d');
+
+		list.removeFirst();
+		expect(list.size()).to.equal(3);
+		expect(list.elementAt(0)).to.equal('b');
+
+		list.removeLast();
+		expect(list.size()).to.equal(2);
+		expect(list.elementAt(1)).to.equal('d');
+
+		list.clear();
+
+		// working with arrays
+
+		var arr = ["1", "2", "3", "4"];
+
+		var list = new LinkedList(arr);
+
+		expect(list.elementAt(0)).to.equal('1');
+		expect(list.elementAt(1)).to.equal('2');
+		expect(list.elementAt(2)).to.equal('3');
+		expect(list.elementAt(3)).to.equal('4');
+
+		list.clear();
+
+		list.addArray(arr);
+		expect(list.elementAt(0)).to.equal('1');
+		expect(list.elementAt(1)).to.equal('2');
+		expect(list.elementAt(2)).to.equal('3');
+		expect(list.elementAt(3)).to.equal('4');
+
+		var arr = list.toArray();
+		expect(arr[0]).to.equal('1');
+		expect(arr[1]).to.equal('2');
+		expect(arr[2]).to.equal('3');
+		expect(arr[3]).to.equal('4');
+
+		var list = new LinkedList();
+
+
+		try {
+			list.elementAt(-1);
+		} catch (err) {
+			expect(err.message).to.equal('OutOfBoundException');
+		}
+
 	});
 
 
 });
+

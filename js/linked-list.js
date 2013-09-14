@@ -98,7 +98,7 @@ var LinkedList = (function () {
 			node.prev.next = node.next;
 		}
 
-		if (!this.next) {
+		if (!node.next) {
 			this.tail = node.prev;
 		} else {
 			node.next.prev = node.prev;
@@ -113,11 +113,14 @@ var LinkedList = (function () {
 
 
 	/**
-	 * Initialize list.
+	 * Initialize list, can be constructed from array.
+	 *
+	 * @param {array}
 	 * @constructor
 	 */
-	var LinkedList = function () {
-		this.clear();	// set head and tail to null;
+	var LinkedList = function (arr) {
+		this.clear();
+		this.addArray(arr);
 	};
 
 	var proto = LinkedList.prototype;	// shorthand
@@ -262,6 +265,21 @@ var LinkedList = (function () {
 		}
 
 		return arr;
+	};
+
+	/**
+	 * Add contents of array to list.
+	 * @param {array}
+	 * @return
+	 */
+	proto.addArray = function (arr) {
+		var self = this;
+		if (arr && arr instanceof Array) {
+			arr.forEach(function (element) {
+				self.insertLast(element);
+			});
+		}
+
 	};
 
 	// export LinkedList constructor
