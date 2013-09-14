@@ -47,6 +47,8 @@ var LinkedList = (function () {
 			node.next.prev = newNode;
 		}
 		node.next = newNode;
+
+		this._size++;
 	}
 
 	/**
@@ -67,6 +69,8 @@ var LinkedList = (function () {
 		}
 
 		node.prev = newNode;
+
+		this._size++;
 	}
 
 	/**
@@ -86,6 +90,8 @@ var LinkedList = (function () {
 		} else {
 			node.next.prev = node.prev;
 		}
+
+		this._size--;
 	}
 
 
@@ -104,6 +110,7 @@ var LinkedList = (function () {
 	 */
 	proto.clear = function () {
 		this.head = this.tail = null;
+		this._size = 0;
 	};
 
 	/**
@@ -111,19 +118,7 @@ var LinkedList = (function () {
 	 * @param {number}
 	 */
 	proto.size = function () {
-
-		if (this.isEmpty()) {
-			return 0;
-		}
-
-		var size = 1;
-		var node = this.head;
-		while (node.next) {
-			node = node.next;
-			size++;
-		}
-
-		return size;
+		return this._size;
 	};
 
 	/**
@@ -137,6 +132,7 @@ var LinkedList = (function () {
 		if (this.isEmpty()) {
 			this.head = newNode;
 			this.tail = newNode;
+			this._size++;
 		} else {
 			_insertBefore.call(this, this.head, newNode);
 		}
