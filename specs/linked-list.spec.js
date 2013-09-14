@@ -352,6 +352,23 @@ describe('Linked list', function () {
 					expect(element).to.equal(index);
 				});
 			});
+
+			it('should iterate correctly with for loop', function () {
+				var list = new LinkedList([0, 1, 2]);
+				for (var i = 0, size = list.size(); i < size; i++) {
+					expect(list.elementAt(i)).to.equal(i);
+				}
+			});
+
+			it('should iterate correctly with iterator', function () {
+				var list = new LinkedList([0, 1, 2]);
+				var iterator = list.iterator();
+				var i=0;
+				while (iterator.hasNext()) {
+					expect(iterator.next()).to.equal(i);
+					i++;
+				}
+			});
 		});
 
 		describe('Compound tests', function () {

@@ -313,7 +313,19 @@ var LinkedList = (function () {
 				self.insertLast(element);
 			});
 		}
+	};
 
+	proto.iterator = function () {
+		var node = {next: this.head};
+		return {
+			hasNext: function () {
+				return !!node.next;
+			},
+			next: function () {
+				node = node.next;
+				return node.element;
+			}
+		};
 	};
 
 	// export LinkedList constructor

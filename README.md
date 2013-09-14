@@ -105,5 +105,25 @@ try {
 Iterating:
 
 ```
+// vanilla style
+var list = new LinkedList([0, 1, 2]);
+for (var i = 0, size = list.size(); i < size; i++) {
+	list.elementAt(i) === i;	//true
+}
+
+// javascript style
+var list = new LinkedList([0, 1, 2]);
+list.forEach(function (element, index) {
+	element === index;			// true
+});
+
+// iterator style
+var list = new LinkedList([0, 1, 2]);
+var iterator = list.iterator();
+var i=0;
+while (iterator.hasNext()) {
+	iterator.next() === i);		// true
+	i++;
+}
 
 ```
