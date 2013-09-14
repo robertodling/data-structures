@@ -74,6 +74,19 @@ var LinkedList = (function () {
 	}
 
 	/**
+	 * Inserts newBode after specified node. Assumes that 'this' is bound to LinkedList.
+	 * @param {object} node
+	 * @private
+	 */
+	function _insertEmpty(node) {
+
+		this.head = node;
+		this.tail = node;
+
+		this._size++;
+	}
+
+	/**
 	 * Removes a node from list. Assumes that 'this' is bound to LinkedList.
 	 * @param {object} node
 	 * @private
@@ -127,14 +140,12 @@ var LinkedList = (function () {
 	 */
 	proto.insertFirst = function (element) {
 
-		var newNode = {element: element};
+		var node = {element: element};
 
 		if (this.isEmpty()) {
-			this.head = newNode;
-			this.tail = newNode;
-			this._size++;
+			_insertEmpty.call(this, node);
 		} else {
-			_insertBefore.call(this, this.head, newNode);
+			_insertBefore.call(this, this.head, node);
 		}
 	};
 
@@ -147,7 +158,7 @@ var LinkedList = (function () {
 		var node = {element: element};
 
 		if (this.isEmpty()) {
-			this.insertFirst(element)
+			_insertEmpty.call(this, node);
 		} else {
 			_insertAfter.call(this, this.tail, node);
 		}
