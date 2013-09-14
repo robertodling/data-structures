@@ -7,7 +7,7 @@ Implementation of an abstract list as a double linked list inspired by Java Coll
 
 ### Examples
 
-Constructing
+Constructing:
 
 ```
 var emptyList = new LinkedList();
@@ -35,7 +35,6 @@ list.elementAt(2);	// 'c'
 list.elementAt(3);	// 'd'
 
 list.size();		// 4
-
 
 var secondList = new LinkedList();
 

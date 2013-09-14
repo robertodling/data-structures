@@ -258,19 +258,11 @@ var LinkedList = (function () {
 	 * @return {array}
 	 */
 	proto.toArray = function () {
-		if (this.isEmpty()) {
-			return [];
-		}
-
 		var arr = [];
-		var node = this.head;
 
-		arr.push(node.element);
-
-		while (node.next) {
-			node = node.next;
-			arr.push(node.element);
-		}
+		this.forEach(function (element) {
+			arr.push(element);
+		});
 
 		return arr;
 	};
@@ -330,6 +322,10 @@ var LinkedList = (function () {
 	 * @param {function}
 	 */
 	proto.forEach = function (fn) {
+
+		if (this.isEmpty()) {
+			return;
+		}
 
 		var index = 0;
 		var node = this.head;
