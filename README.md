@@ -138,3 +138,4 @@ var list = new LinkedList(['one', 'two', 'three]);
 list.indexOf('two');		// 1
 list.indexOf('unknown');	// -1
 ```
+
