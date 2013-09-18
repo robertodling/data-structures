@@ -3,7 +3,7 @@
   "gitHead": "bff2c6268ce72e271b17a1480f6e2f5919d4464e",
   "name": "data-structures",
   "description": "data-structures",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "karma start",
   "dependencies": {
     "karma": "~0.10.2",
@@ -24,7 +24,7 @@
     "karma-chai": "0.0.1"
   },
   "scripts": {
-    "test": "karma start"
+    "test": "karma run"
   },
   "repository": {
     "type": "git",
@@ -32,11 +32,14 @@
   },
   "keywords": [
     "data structures",
+    "list",
     "linkedlist",
+    "map",
+    "hashmap",
     "javascript"
   ],
   "author": "Robert Ödling",
-  "license": "",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/robertodling/data-structures/issues"
   }
