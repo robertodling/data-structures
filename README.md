@@ -1,13 +1,28 @@
 data-structures
 ===============
 
+Implementations of various classical data structures in JavaScript. Lightly inspired by Java Collections. Assumes Ecma5.
+
+## Run tests
+
+Install dependencies:
+```
+npm install
+```
+
+Run file watcher and test runner:
+
+```
+./node_modules/karma/bin/karma start
+```
+
 ## Linked list
 
-Implementation of an abstract list as a double linked list inspired by Java Collections. Assumes ES5.
+Implementation of an abstract list as a double linked list.
 
-### Examples
 
-Constructing:
+
+### Constructing list
 
 ```
 var emptyList = new LinkedList();
@@ -17,7 +32,7 @@ var listFromArray = new LinkedList([1,2,3,4]);
 var copiedList = new LinkedList(listFromArray);
 ```
 
-Inserting and retrieving:
+### Inserting and retrieving elements
 
 ```
 var list = new LinkedList();
@@ -46,7 +61,7 @@ list.elementAt(4);	// 'e'
 
 ```
 
-Removing:
+### Removing elements
 
 ```
 var list = new LinkedList();
@@ -69,7 +84,7 @@ list.clear();
 list.size();			// 0
 ```
 
-Working with arrays:
+### Working with arrays
 
 ```
 var list = new LinkedList(["1", "2", "3", "4"]);
@@ -91,7 +106,7 @@ arr[0];					// 'foo'
 arr[1];					// 'bar'
 ```
 
-Error handling:
+### Error handling
 
 ```
 var list = new LinkedList();
@@ -103,11 +118,11 @@ try {
 }
 ```
 
-Iterating:
+### Iterating over elements
 
 ```
 // vanilla style
-// not performant
+// NOTE: not performant
 var list = new LinkedList([0, 1, 2]);
 for (var i = 0, size = list.size(); i < size; i++) {
 	list.elementAt(i) === i;	//true
@@ -130,12 +145,45 @@ while (iterator.hasNext()) {
 
 ```
 
-Finding elements:
+### Finding elements
 
 ```
 var list = new LinkedList(['one', 'two', 'three]);
 
 list.indexOf('two');		// 1
 list.indexOf('unknown');	// -1
+```
+
+## HashMap
+
+Implementation of an abstract map.
+
+* Does not allow _null_ or _undefined_ as keys or values.
+* Does not preserve order when retrieving values or keys.
+
+### Examples
+
+```
+var map = new HashMap();
+
+map.put('foo', 'bar');
+map.put('hello', 'world');
+
+map.isEmpty();		// false
+
+map.size();			// 2
+
+map.get('foo');		// 'bar'
+
+map.remove('foo');
+
+// note: order nor preserved
+map.keys();			// ['hello'];
+map.values();		// ['world'];
+
+map.forEach(function (key, value) {
+	//
+});
+
 ```
 

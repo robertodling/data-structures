@@ -1,6 +1,8 @@
 /* global describe, it, expect, LinkedList*/
 describe('Linked list', function () {
+
 	'use strict';
+
 	/**
 	 * Helper functions to ease in setting up test cases
 	 *
@@ -363,7 +365,7 @@ describe('Linked list', function () {
 			it('should iterate correctly with iterator', function () {
 				var list = new LinkedList([0, 1, 2]);
 				var iterator = list.iterator();
-				var i=0;
+				var i = 0;
 				while (iterator.hasNext()) {
 					expect(iterator.next()).to.equal(i);
 					i++;
@@ -373,14 +375,13 @@ describe('Linked list', function () {
 
 		describe('Finding elements', function () {
 			it('should return index of existing item', function () {
-				var list = new LinkedList(['one', 'two','three']);
+				var list = new LinkedList(['one', 'two', 'three']);
 				var result = list.indexOf('two');
-				console.log('res '+result);
 				expect(result).to.equal(1);
 			});
 
 			it.skip('should return -1 if item does not exist', function () {
-				var list = new LinkedList(['one', 'two','three']);
+				var list = new LinkedList(['one', 'two', 'three']);
 				expect(list.indexOf('unknown')).to.equal(-1);
 			});
 			it.skip('should return -1 when trying to find item on empty list', function () {

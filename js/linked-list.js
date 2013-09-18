@@ -118,7 +118,6 @@ var LinkedList = (function () {
 
 	/**
 	 * Initialize list, can be constructed from array.
-	 *
 	 * @param {array}
 	 * @constructor
 	 */
