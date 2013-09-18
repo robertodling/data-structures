@@ -381,11 +381,11 @@ describe('Linked list', function () {
 				expect(result).to.equal(1);
 			});
 
-			it.skip('should return -1 if item does not exist', function () {
+			it('should return -1 if item does not exist', function () {
 				var list = new LinkedList(['one', 'two', 'three']);
 				expect(list.indexOf('unknown')).to.equal(-1);
 			});
-			it.skip('should return -1 when trying to find item on empty list', function () {
+			it('should return -1 when trying to find item on empty list', function () {
 				var list = new LinkedList();
 				expect(list.indexOf('unknown')).to.equal(-1);
 			});
