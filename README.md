@@ -3,6 +3,9 @@ data-structures
 
 Implementations of various classical data structures in JavaScript. Lightly inspired by Java Collections. Assumes ES5.
 
+* LinkedList
+* HashMap
+
 ## Run tests
 
 Install dependencies

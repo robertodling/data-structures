@@ -4,7 +4,7 @@
  * Does not preserve order when retrieving values or keys.
  *
  * @license data-structures
- * Robert Ödling https://github.com/robertodling/data-structures
+ * (c) Robert Ödling https://github.com/robertodling/data-structures
  * License: MIT (http://www.opensource.org/licenses/mit-license.php)
  */
 
@@ -152,8 +152,8 @@ var HashMap = (function () {
 
 		// NOTE: It would have been enough with "this.map = {}"
 		// but this approach should hopefully speed up garbage collecting
-		this.forEach(function (key, value) {
-			delete (this.map[key]);
+		this.forEach(function (key) {
+			delete this.map[key];
 		}.bind(this));
 	};
 

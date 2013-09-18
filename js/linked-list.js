@@ -2,7 +2,7 @@
  * LinkedList, implementation of an abstract list as a double linked list.
  *
  * @license data-structures
- * Robert Ödling https://github.com/robertodling/data-structures
+ * (c) Robert Ödling https://github.com/robertodling/data-structures
  * License: MIT (http://www.opensource.org/licenses/mit-license.php)
  */
 
@@ -115,7 +115,7 @@ var LinkedList = (function () {
 	}
 
 	/**
-	 * Check if specified index is out of bounds.
+	 * Checks if specified index is out of bounds.
 	 * Assumes that 'this' is bound to an instance of LinkedList.
 	 * @param {number} index
 	 * @return {boolean}
@@ -370,6 +370,6 @@ var LinkedList = (function () {
 		return -1;
 	};
 
-	// export LinkedList constructor
+	// "export" LinkedList constructor
 	return LinkedList;
 })();
