@@ -1,16 +1,16 @@
 data-structures
 ===============
 
-Implementations of various classical data structures in JavaScript. Lightly inspired by Java Collections. Assumes Ecma5.
+Implementations of various classical data structures in JavaScript. Lightly inspired by Java Collections. Assumes ES5.
 
 ## Run tests
 
-Install dependencies:
+Install dependencies
 ```
 npm install
 ```
 
-Run file watcher and test runner:
+Run file watcher and test runner
 
 ```
 ./node_modules/karma/bin/karma start
@@ -177,7 +177,7 @@ map.get('foo');		// 'bar'
 
 map.remove('foo');
 
-// note: order nor preserved
+// note: order of "addition" not preserved
 map.keys();			// ['hello'];
 map.values();		// ['world'];
 
