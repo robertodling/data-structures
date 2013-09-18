@@ -12,32 +12,31 @@ var LinkedList = (function () {
 	'use strict';
 
 	/**
-	 * Returns node at specified number of steps after specified node.
+	 * Returns the node at specified number of steps after the specified node.
 	 * @param {number} node
 	 * @param {number} steps
 	 * @return {object} node
 	 * @private
 	 */
 	function _nodeAfter(node, steps) {
-
 		var i = 0;
-
 		while (i < steps) {
 			node = node.next;
 			i++;
 		}
-
 		return node;
 	}
 
 	/**
-	 * Inserts newBode after specified node. Assumes that 'this' is bound to LinkedList.
+	 * Inserts provided newNode after the specified node.
+	 * Assumes that 'this' is bound to an instance of LinkedList.
 	 * @param {object} node
 	 * @param {object} newNode
 	 * @private
 	 */
 	function _insertAfter(node, newNode) {
 		/* jshint validthis:true */
+
 		newNode.prev = node;
 		newNode.next = node.next;
 
@@ -46,19 +45,22 @@ var LinkedList = (function () {
 		} else {
 			node.next.prev = newNode;
 		}
+
 		node.next = newNode;
 
 		this._size++;
 	}
 
 	/**
-	 * Inserts newBode before specified node. Assumes that 'this' is bound to LinkedList.
+	 * Inserts provided newNode before the specified node.
+	 * Assumes that 'this' is bound to an instance of LinkedList.
 	 * @param {object} node
 	 * @param {object} newNode
 	 * @private
 	 */
 	function _insertBefore(node, newNode) {
 		/* jshint validthis:true */
+
 		newNode.prev = node.prev;
 		newNode.next = node;
 
@@ -74,12 +76,14 @@ var LinkedList = (function () {
 	}
 
 	/**
-	 * Inserts newBode after specified node. Assumes that 'this' is bound to LinkedList.
+	 * Inserts provided newNode after the specified node.
+	 * Assumes that 'this' is bound to an instance of LinkedList.
 	 * @param {object} node
 	 * @private
 	 */
 	function _insertEmpty(node) {
 		/* jshint validthis:true */
+
 		this.head = node;
 		this.tail = node;
 
@@ -87,12 +91,14 @@ var LinkedList = (function () {
 	}
 
 	/**
-	 * Removes a node from list. Assumes that 'this' is bound to LinkedList.
+	 * Removes specified node.
+	 * Assumes that 'this' is bound to an instance of LinkedList.
 	 * @param {object} node
 	 * @private
 	 */
 	function _removeNode(node) {
 		/* jshint validthis:true */
+
 		if (!node.prev) {
 			this.head = node.next;
 		} else {
@@ -108,8 +114,16 @@ var LinkedList = (function () {
 		this._size--;
 	}
 
+	/**
+	 * Check if specified index is out of bounds.
+	 * Assumes that 'this' is bound to an instance of LinkedList.
+	 * @param {number} index
+	 * @return {boolean}
+	 * @private
+	 */
 	function _isOutOfBounds(index) {
 		/* jshint validthis:true */
+
 		var outsideLowerBound = index < 0;
 		var outsideHigherBound = index > this.size();
 		return outsideLowerBound || outsideHigherBound;
@@ -117,12 +131,15 @@ var LinkedList = (function () {
 
 
 	/**
-	 * Initialize list, can be constructed from array.
+	 * Constructor for LinkedList.
+	 * List be initialized empty, from array or from another LinkedList.
 	 * @param {array}
 	 * @constructor
 	 */
 	var LinkedList = function (elements) {
+
 		this.clear();
+
 		if (elements && elements instanceof Array) {
 			this.insertArray(elements);
 		} else if (elements && elements instanceof LinkedList) {
@@ -134,7 +151,7 @@ var LinkedList = (function () {
 	var proto = LinkedList.prototype;	// shorthand
 
 	/**
-	 * Clears list
+	 * Clears this list
 	 */
 	proto.clear = function () {
 		this.head = this.tail = null;
@@ -142,7 +159,7 @@ var LinkedList = (function () {
 	};
 
 	/**
-	 * Returns number of elements in list.
+	 * Returns number of elements in this list.
 	 * @return {number}
 	 */
 	proto.size = function () {
@@ -150,7 +167,7 @@ var LinkedList = (function () {
 	};
 
 	/**
-	 * Insert specified element first in list, will increment index of all other elements.
+	 * Insert specified element first in this list, will increment index of all other elements.
 	 * @param {*} element
 	 */
 	proto.insertFirst = function (element) {
@@ -165,7 +182,7 @@ var LinkedList = (function () {
 	};
 
 	/**
-	 * Insert specified element last in list, will _NOT_ increment index of any elements.
+	 * Insert specified element last in this list, will _NOT_ increment index of any elements.
 	 * @param {*} element
 	 */
 	proto.insertLast = function (element) {
@@ -181,7 +198,7 @@ var LinkedList = (function () {
 	};
 
 	/**
-	 * Insert specified element at specified index, will increment index of all following elements.
+	 * Insert specified element at specified index in this list, will increment index of all following elements.
 	 * @param {number} index
 	 * @param {*} element
 	 */
@@ -218,7 +235,7 @@ var LinkedList = (function () {
 
 
 	/**
-	 * Remove first element.
+	 * Removes first element.
 	 */
 	proto.removeFirst = function () {
 		_removeNode.call(this, this.head);
@@ -226,14 +243,14 @@ var LinkedList = (function () {
 
 
 	/**
-	 * Remove last element.
+	 * Removes last element.
 	 */
 	proto.removeLast = function () {
 		_removeNode.call(this, this.tail);
 	};
 
 	/**
-	 * Remove element at specified index.
+	 * Removes element at specified index.
 	 * @param {number} index
 	 */
 	proto.removeAt = function (index) {
@@ -245,7 +262,7 @@ var LinkedList = (function () {
 	};
 
 	/**
-	 * Check if list is empty
+	 * Checks if list is empty
 	 * @return {boolean}
 	 */
 	proto.isEmpty = function () {
@@ -258,17 +275,15 @@ var LinkedList = (function () {
 	 */
 	proto.toArray = function () {
 		var arr = [];
-
 		this.forEach(function (element) {
 			arr.push(element);
 		});
-
 		return arr;
 	};
 
 
 	/**
-	 * Add contents of array to list.
+	 * Adds contents of array to this list.
 	 * @param {array}
 	 * @return
 	 */
@@ -283,7 +298,7 @@ var LinkedList = (function () {
 	};
 
 	/**
-	 * Add contents of specified list to list.
+	 * Adds contents of specified list to this list.
 	 * @param {object}
 	 * @return
 	 */
@@ -297,10 +312,11 @@ var LinkedList = (function () {
 	};
 
 	/**
-	 * Return an iterator being backed up by this list.
+	 * Returns an iterator being backed up by this list.
 	 * @return {object}
 	 */
 	proto.iterator = function () {
+
 		// create special start node so first next() will point to head.
 		var node = {next: this.head};
 
@@ -317,7 +333,7 @@ var LinkedList = (function () {
 	};
 
 	/**
-	 * Invoke function on each element in list
+	 * Invokes provided function on each element in this list.
 	 * @param {function}
 	 */
 	proto.forEach = function (fn) {
@@ -336,7 +352,7 @@ var LinkedList = (function () {
 	};
 
 	/**
-	 * Find the index of specified element.
+	 * Finds the index of specified element.
 	 * @param {*}
 	 */
 	proto.indexOf = function (element) {

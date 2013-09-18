@@ -38,7 +38,7 @@ describe('Linked list', function () {
 
 	}
 
-	describe('Size method', function () {
+	describe('Getting size of list', function () {
 
 		it('should have zero size if empty', function () {
 			var list = new LinkedList();
@@ -86,7 +86,7 @@ describe('Linked list', function () {
 		});
 	});
 
-	describe('Element at position', function () {
+	describe('Finding element at position', function () {
 
 		it('should return correct element at position 0', function () {
 			var list = new LinkedList();
@@ -103,7 +103,7 @@ describe('Linked list', function () {
 	});
 
 
-	describe('Inserting', function () {
+	describe('Inserting elements', function () {
 
 
 		describe('Insert first', function () {
@@ -185,7 +185,7 @@ describe('Linked list', function () {
 
 	});
 
-	describe('Removing', function () {
+	describe('Removing elements', function () {
 
 
 		describe('Remove first ', function () {
@@ -346,7 +346,8 @@ describe('Linked list', function () {
 			});
 		});
 
-		describe('Iterating', function () {
+		describe('Iterating over elements', function () {
+
 			it('should run callback for each element', function () {
 				var list = new LinkedList([0, 1, 2]);
 				list.forEach(function (element, index) {

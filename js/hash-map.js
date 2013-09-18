@@ -8,38 +8,15 @@
  * License: MIT (http://www.opensource.org/licenses/mit-license.php)
  */
 
-// 'LinkedList' will be added to global scope.
+// 'HashMap' will be added to global scope.
 var HashMap = (function () {
 
 	'use strict';
 
-	/**
-	 * Initializes map
-	 * @constructor
-	 */
-	var HashMap = function () {
-		this.map = {};
-	};
-
-	var proto = HashMap.prototype;	// shorthand
 
 	/**
-	 * Returns size, the number of entries (or more correct number of keys) in the map.
-	 * @return {number}
-	 */
-	proto.size = function () {
-		var size = 0;
-
-		this.forEach(function () {
-			size++;
-		});
-
-		return size;
-	};
-
-	/**
-	 * Checks if any of the provided arguments is undefined or null,
-	 * used because we want to allow "falsy" strings, numbers and booleans in map.
+	 * Checks if any of the provided arguments are undefined or null,
+	 * used to allow "falsy" strings, numbers and booleans in a map.
 	 * @param {*...}
 	 * @return {boolean}
 	 * @private
@@ -55,8 +32,32 @@ var HashMap = (function () {
 	}
 
 	/**
-	 * Associates specified value under specified key in map.
-	 * Do no allow key or value to be undefined or null.
+	 * HashMap constructor.
+	 * @constructor
+	 */
+	var HashMap = function () {
+		this.map = {};
+	};
+
+	var proto = HashMap.prototype;	// shorthand
+
+	/**
+	 * Returns the size, the number of entries (or more correct number of keys), in this map.
+	 * @return {number}
+	 */
+	proto.size = function () {
+		var size = 0;
+
+		this.forEach(function () {
+			size++;
+		});
+
+		return size;
+	};
+
+	/**
+	 * Associates specified value under specified key in this map.
+	 * Does no allow key or value to be undefined or null.
 	 * @param {*} key
 	 * @param {*} value
 	 */
@@ -70,8 +71,8 @@ var HashMap = (function () {
 	};
 
 	/**
-	 * Returns the value associated to specified key in map.
-	 * Do no allow key undefined or null.
+	 * Returns the value associated to specified key in this map.
+	 * Does no allow key to be undefined or null.
 	 * @param {*} key
 	 * @param {*} value
 	 * @return {*}
@@ -89,8 +90,8 @@ var HashMap = (function () {
 	};
 
 	/**
-	 * Removes the mapping for the specified key from map.
-	 * Do no allow key undefined or null.
+	 * Removes the mapping for the specified key from this map.
+	 * Does no allow key to be undefined or null.
 	 * @param {*} key
 	 * @param {*} value
 	 */
@@ -145,7 +146,7 @@ var HashMap = (function () {
 	};
 
 	/**
-	 * Removes all key-value mappings from map.
+	 * Removes all key-value mappings from this map.
 	 */
 	proto.clear = function () {
 
@@ -157,7 +158,7 @@ var HashMap = (function () {
 	};
 
 	/**
-	 * Applies cb on each key value mapping in map.
+	 * Applies provided function on each key value mapping in this map.
 	 * @param {function} cb
 	 */
 	proto.forEach = function (cb) {

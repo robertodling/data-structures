@@ -10,7 +10,7 @@ describe('HashMap', function () {
 	}
 
 
-	describe('Put and size', function () {
+	describe('Puting items to map', function () {
 		it('should have size 0 if no item added', function () {
 			var map = new HashMap();
 			expect(map.size()).to.equal(0);
@@ -105,6 +105,7 @@ describe('HashMap', function () {
 	describe('Get values from map', function () {
 
 		it('should return values as array', function () {
+
 			var map = new HashMap();
 			map.put('one', 1);
 			map.put('two', 2);
@@ -122,6 +123,7 @@ describe('HashMap', function () {
 	describe('Get keys from map', function () {
 
 		it('should return keys as array', function () {
+
 			var map = new HashMap();
 			map.put('one', 1);
 			map.put('two', 2);
@@ -144,6 +146,7 @@ describe('HashMap', function () {
 		});
 
 		it('shold return true after adding and removing', function () {
+
 			var map = new HashMap();
 			map.put('one', 1);
 			map.put('two', 2);
@@ -152,6 +155,7 @@ describe('HashMap', function () {
 			map.remove('one');
 			map.remove('two');
 			map.remove('three');
+
 			expect(map.isEmpty()).to.be.true;
 		});
 
@@ -191,10 +195,6 @@ describe('HashMap', function () {
 			expect(values.indexOf(2)).to.be.at.least(0);
 			expect(values.indexOf(3)).to.be.at.least(0);
 		});
-
-
 	});
-
-
 });
 
